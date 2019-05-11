@@ -80,10 +80,21 @@ Cantidad = {
 #variables
 
 #metodos
+#Método que devuelve la informacion completa de un producto especificado
+def getZapato(codigo):
+    if codigo in Codigos.values():
+        clave = list(Codigos.values()).index(codigo)
+        descr = Descripcion.get(clave)
+        tal = Talla.get(clave)
+        prec = Precio.get(clave)
+        cant = Cantidad.get(clave)
+    return "\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n"
+    
 
 #Método que permite realizar entregas
 def entregar():
-    codigo = input("ingrese el código del zapato: ")
+
+    codigo = input("ingrese el código del zapato: ")  
     if codigo in Codigos.values():
         clave = list(Codigos.values()).index(codigo)
         descr = Descripcion.get(clave)
@@ -146,33 +157,91 @@ def verificarExistencia():
     else:
         print("\n El código introducido no se encuentra registrado.")
 
+
 #Método que muestra todo el inventario
 def verExistencia():
     print("Modelo  | Descripción         | Talla | Precio  | Cantidad \n")
     for i in Codigos:
         print(Codigos[i]+" | "+Descripcion[i]+"   | "+str(Talla[i])+"    | "+str(Precio[i])+"   | "+str(Cantidad[i]))
 
+#Método que permite modificar las caracteristicas de un producto ya registrado
+def updateZapato():
+
+    codigo = input("Ingrese el código del zapato: ")
+    if codigo in Codigos.values():
+        clave = list(Codigos.values()).index(codigo)
+        descr = Descripcion.get(clave)
+        tal = Talla.get(clave)
+        prec = Precio.get(clave)
+        cant = Cantidad.get(clave)
+        print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
+        print("\n1. Descripción\n2. Talla\n3. Precio\n4. Cantidad")
+        opcion = int(input("\n Seleccione la característica que desea cambiar: "))
+        if opcion == 1:
+            campo = input("\n Introduzca la nueva descripción: ")
+            Descripcion.update({clave: campo})
+            print("\n La información se ha actualizado de manera satisfactoria")
+            print(getZapato(codigo))
+        elif opcion == 2:
+            try:
+                campo = input("\n Introduzca la nueva talla: ")
+                Talla.update({clave: campo})
+                print("\n La información se ha actualizado de manera satisfactoria")
+                print(getZapato(codigo))
+            except ValueError:
+                print("\nEl valor debe ser numerico")
+        elif opcion == 3:
+            try:
+                campo = input("\n Introduzca el nuevo precio: ")
+                Precio.update({clave: campo})
+                print("\n La información se ha actualizado de manera satisfactoria")
+                print(getZapato(codigo))
+            except ValueError:
+                print("\nEl valor debe ser numerico")
+        elif opcion == 4:
+            try:
+                campo = input("\n Introduzca la nueva cantidad: ")
+                Cantidad.update({clave: campo})
+                print("\n La información se ha actualizado de manera satisfactoria")
+                print(getZapato(codigo))
+            except ValueError:
+                print("\nEl valor debe ser numerico")
+        elif opcion > 5 or opcion < 1:
+            print("\n La opción introducida no es correcta.")
+
+    else:
+        print("\n El código introducido no se encuentra registrado.")
+
+
+#Método que permite eliminar el registro de un producto
+def deleteZapato():
+ print ()
 
 switch = {
     1: entregar,
     2: fabricar,
     3: verificarExistencia,
-    4: verExistencia
+    4: verExistencia,
+    5: updateZapato,
+    6: deleteZapato
 }
 
 def main():
     a = True
     while (a):
-        print ( "\n1. entregar\n2. fabricar\n3. verificarExistencia\n4. verExistencia\n5. salir\n")
-        op = int(input("ingrese una opción: "))
-        if op > 5 or op < 1:
-            print("Opción invalida")
-        else:
-            if op != 5:
-                switch[op]()
-            elif op == 5:
-                print("\nGracias por usar el sistema, regrese pronto\n")
-                a = False
+        print ( "\n1. Entregar\n2. Fabricar\n3. Verificar Existencia\n4. Ver Inventario\n5. Modificar registro\n6. Eliminar registro\n7. por definir\n8. Salir")
+        try:
+            op = int(input("Ingrese una opción: "))
+            if op > 8 or op < 1:
+                print("Opción invalida")
+            else:
+                if op != 8:
+                    switch[op]()
+                elif op == 8:
+                    print("\nGracias por usar el sistema, regrese pronto\n")
+                    a = False
+        except ValueError:
+                print("\nEl valor debe ser numerico")
 
 #metodos
 
