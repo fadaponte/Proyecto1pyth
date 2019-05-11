@@ -90,6 +90,19 @@ def getZapato(codigo):
         cant = Cantidad.get(clave)
     return "\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n"
     
+#Método que elimina un registro entero de producto
+def popZapato(codigo):
+    if codigo in Codigos.values():
+        llave = list(Codigos.values()).index(codigo)
+        Codigos.pop(llave)
+        Descripcion.pop(llave)
+        Talla.pop(llave)
+        Precio.pop(llave)
+        Cantidad.pop(llave)
+        return True
+    else:
+        return False
+
 
 #Método que permite realizar entregas
 def entregar():
@@ -215,6 +228,20 @@ def updateZapato():
 
 #Método que permite eliminar el registro de un producto
 def deleteZapato():
+ codigo = input("Ingrese el código del zapato que desea eliminar: ")
+ print("\n El registro a eliminar es:")
+ print(getZapato(codigo))
+ op = input("\n¿Está seguro que desea eliminar el registro?(y/n): ")
+ if op == "y":
+    if popZapato(codigo) == True:
+        print("\n El registro se ha eliminado satisfactoriamente")
+        print("\n A continuacion se muestra el inventario para confirmación: \n")
+        verExistencia()
+       
+
+
+#Método que permite agregar un registro de un producto
+def postZapato():
  print ()
 
 switch = {
@@ -229,7 +256,7 @@ switch = {
 def main():
     a = True
     while (a):
-        print ( "\n1. Entregar\n2. Fabricar\n3. Verificar Existencia\n4. Ver Inventario\n5. Modificar registro\n6. Eliminar registro\n7. por definir\n8. Salir")
+        print ( "\n1. Entregar\n2. Fabricar\n3. Verificar Existencia\n4. Ver Inventario\n5. Modificar registro\n6. Eliminar registro\n7. Agregar producto\n8. Salir")
         try:
             op = int(input("Ingrese una opción: "))
             if op > 8 or op < 1:
