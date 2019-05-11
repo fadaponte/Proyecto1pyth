@@ -107,15 +107,38 @@ def entregar():
             if (op == "n"):
                 break
         
-
+#Método que permite agregar unidades del producto al inventario
 def fabricar():
-    return "por implementar fabricar\n"
+    codigo = input("ingrese el código del zapato: ")
+    clave = list(Codigos.values()).index(codigo)
+    descr = Descripcion.get(clave)
+    tal = Talla.get(clave)
+    prec = Precio.get(clave)
+    cant = Cantidad.get(clave)
+    print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
+    fabricados = input("\n Indique la cantidad a fabricar:")
+    total = cant + int(fabricados)
+    Cantidad.update({clave: total})
+    print("\n Agregadas "+ fabricados + " unidades del modelo " + codigo)
+    cant = Cantidad.get(clave)                          
+    print("\n Existencia del modelo "+ codigo + ": "+ str(cant) + "\n")
+    
 
 def verificarExistencia():
-    return "por implementar verificarExistencia\n"
+    codigo = input("ingrese el código del zapato: ")
+    clave = list(Codigos.values()).index(codigo)
+    descr = Descripcion.get(clave)
+    tal = Talla.get(clave)
+    prec = Precio.get(clave)
+    cant = Cantidad.get(clave)
+    print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
+
 
 def verExistencia():
-    return "por implementar verExistencia\n"
+    print("Modelo  | Descripción         | Talla | Precio  | Cantidad \n")
+    for i in Codigos:
+        print(Codigos[i]+" | "+Descripcion[i]+"   | "+str(Talla[i])+"    | "+str(Precio[i])+"   | "+str(Cantidad[i]))
+
 
 switch = {
     1: entregar,
