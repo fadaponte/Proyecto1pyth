@@ -84,56 +84,69 @@ Cantidad = {
 #Método que permite realizar entregas
 def entregar():
     codigo = input("ingrese el código del zapato: ")
-    clave = list(Codigos.values()).index(codigo)
-    descr = Descripcion.get(clave)
-    tal = Talla.get(clave)
-    prec = Precio.get(clave)
-    cant = Cantidad.get(clave)
+    if codigo in Codigos.values():
+        clave = list(Codigos.values()).index(codigo)
+        descr = Descripcion.get(clave)
+        tal = Talla.get(clave)
+        prec = Precio.get(clave)
+        cant = Cantidad.get(clave)
+        print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
    
-    print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
-   
-    while (True):
-        despacho = input("\n Indique la cantidad a despachar:")
-        total = cant - int(despacho)
-        if total > 0:
-            Cantidad.update({clave: total})
-            print("\n Despachadas "+ despacho + " unidades del modelo " + codigo)
-            cant = Cantidad.get(clave)                          
-            print("\n Existencia del modelo "+ codigo + ": "+ str(cant) + "\n")
-            break
-        else:
-            print("\n La cantidad introducida es mayor que las existencias del producto")
-            op = input("\n Desea introducir otra cantidad?(y/n): ")
-            if (op == "n"):
+        while (True):
+            despacho = input("\n Indique la cantidad a despachar:")  
+            total = cant - int(despacho)
+            if total > 0:
+                Cantidad.update({clave: total})
+                print("\n Despachadas "+ despacho + " unidades del modelo " + codigo)
+                cant = Cantidad.get(clave)                          
+                print("\n Existencia del modelo "+ codigo + ": "+ str(cant) + "\n")
                 break
+            else:
+                print("\n La cantidad introducida es mayor que las existencias del producto")
+                op = input("\n Desea introducir otra cantidad?(y/n): ")
+                if (op == "n"):
+                    break
+
+    else:
+        print("\n El código introducido no se encuentra registrado.")
+
         
 #Método que permite agregar unidades del producto al inventario
 def fabricar():
+
     codigo = input("ingrese el código del zapato: ")
-    clave = list(Codigos.values()).index(codigo)
-    descr = Descripcion.get(clave)
-    tal = Talla.get(clave)
-    prec = Precio.get(clave)
-    cant = Cantidad.get(clave)
-    print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
-    fabricados = input("\n Indique la cantidad a fabricar:")
-    total = cant + int(fabricados)
-    Cantidad.update({clave: total})
-    print("\n Agregadas "+ fabricados + " unidades del modelo " + codigo)
-    cant = Cantidad.get(clave)                          
-    print("\n Existencia del modelo "+ codigo + ": "+ str(cant) + "\n")
+    if codigo in Codigos.values():
+        clave = list(Codigos.values()).index(codigo)
+        descr = Descripcion.get(clave)
+        tal = Talla.get(clave)
+        prec = Precio.get(clave)
+        cant = Cantidad.get(clave)
+        print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
+        fabricados = input("\n Indique la cantidad a fabricar:")
+        total = cant + int(fabricados)
+        Cantidad.update({clave: total})
+        print("\n Agregadas "+ fabricados + " unidades del modelo " + codigo)
+        cant = Cantidad.get(clave)                          
+        print("\n Existencia del modelo "+ codigo + ": "+ str(cant) + "\n")
+
+    else:
+        print("\n El código introducido no se encuentra registrado.")
     
-
+#Método que muestra las existencias de un modelo particular
 def verificarExistencia():
+
     codigo = input("ingrese el código del zapato: ")
-    clave = list(Codigos.values()).index(codigo)
-    descr = Descripcion.get(clave)
-    tal = Talla.get(clave)
-    prec = Precio.get(clave)
-    cant = Cantidad.get(clave)
-    print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
+    if codigo in Codigos.values():
+        clave = list(Codigos.values()).index(codigo)
+        descr = Descripcion.get(clave)
+        tal = Talla.get(clave)
+        prec = Precio.get(clave)
+        cant = Cantidad.get(clave)
+        print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
+    else:
+        print("\n El código introducido no se encuentra registrado.")
 
-
+#Método que muestra todo el inventario
 def verExistencia():
     print("Modelo  | Descripción         | Talla | Precio  | Cantidad \n")
     for i in Codigos:
@@ -150,7 +163,7 @@ switch = {
 def main():
     a = True
     while (a):
-        print ( "1. entregar\n2. fabricar\n3. verificarExistencia\n4. verExistencia\n5. salir\n")
+        print ( "\n1. entregar\n2. fabricar\n3. verificarExistencia\n4. verExistencia\n5. salir\n")
         op = int(input("ingrese una opción: "))
         if op > 5 or op < 1:
             print("Opción invalida")
