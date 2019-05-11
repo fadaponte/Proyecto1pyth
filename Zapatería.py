@@ -197,7 +197,7 @@ def updateZapato():
             print(getZapato(codigo))
         elif opcion == 2:
             try:
-                campo = input("\n Introduzca la nueva talla: ")
+                campo = int(input("\n Introduzca la nueva talla: "))
                 Talla.update({clave: campo})
                 print("\n La información se ha actualizado de manera satisfactoria")
                 print(getZapato(codigo))
@@ -205,7 +205,7 @@ def updateZapato():
                 print("\nEl valor debe ser numerico")
         elif opcion == 3:
             try:
-                campo = input("\n Introduzca el nuevo precio: ")
+                campo = int(input("\n Introduzca el nuevo precio: "))
                 Precio.update({clave: campo})
                 print("\n La información se ha actualizado de manera satisfactoria")
                 print(getZapato(codigo))
@@ -213,7 +213,7 @@ def updateZapato():
                 print("\nEl valor debe ser numerico")
         elif opcion == 4:
             try:
-                campo = input("\n Introduzca la nueva cantidad: ")
+                campo = int(input("\n Introduzca la nueva cantidad: "))
                 Cantidad.update({clave: campo})
                 print("\n La información se ha actualizado de manera satisfactoria")
                 print(getZapato(codigo))
@@ -242,7 +242,25 @@ def deleteZapato():
 
 #Método que permite agregar un registro de un producto
 def postZapato():
- print ()
+    llave = list(Codigos.values()).index(Codigos.get(len(Codigos)-1))
+    codigo = input ("\n Introduzca el código del zapato a agregar:")
+    Codigos[llave+1] = codigo
+    descr = input ("\n Introduzca la descripcion del zapato a agregar:")
+    Descripcion[llave+1] = descr
+
+    try:
+        talla = int(input ("\n Introduzca la talla del zapato a agregar:"))
+        Talla[llave+1] = talla
+        precio = int(input ("\n Introduzca el precio del zapato a agregar:"))
+        Precio[llave+1] = precio
+        cantidad = int(input ("\n Introduzca la cantidad del zapato a agregar:"))
+        Cantidad[llave+1] = cantidad
+    except ValueError:
+         print("\nEl valor debe ser numerico")
+    
+    print("\n A continuacion se muestra el inventario para confirmación: \n")
+    verExistencia()
+       
 
 switch = {
     1: entregar,
@@ -250,7 +268,8 @@ switch = {
     3: verificarExistencia,
     4: verExistencia,
     5: updateZapato,
-    6: deleteZapato
+    6: deleteZapato,
+    7: postZapato
 }
 
 def main():
