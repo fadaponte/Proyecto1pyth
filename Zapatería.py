@@ -198,27 +198,30 @@ def updateZapato():
         elif opcion == 2:
             try:
                 campo = int(input("\n Introduzca la nueva talla: "))
+            except ValueError:
+                print("\nEl valor debe ser numerico")
+            else:
                 Talla.update({clave: campo})
                 print("\n La información se ha actualizado de manera satisfactoria")
                 print(getZapato(codigo))
-            except ValueError:
-                print("\nEl valor debe ser numerico")
         elif opcion == 3:
             try:
                 campo = int(input("\n Introduzca el nuevo precio: "))
+            except ValueError:
+                print("\nEl valor debe ser numerico")
+            else:
                 Precio.update({clave: campo})
                 print("\n La información se ha actualizado de manera satisfactoria")
                 print(getZapato(codigo))
-            except ValueError:
-                print("\nEl valor debe ser numerico")
         elif opcion == 4:
             try:
                 campo = int(input("\n Introduzca la nueva cantidad: "))
+            except ValueError:
+                print("\nEl valor debe ser numerico")
+            else:
                 Cantidad.update({clave: campo})
                 print("\n La información se ha actualizado de manera satisfactoria")
                 print(getZapato(codigo))
-            except ValueError:
-                print("\nEl valor debe ser numerico")
         elif opcion > 5 or opcion < 1:
             print("\n La opción introducida no es correcta.")
 
@@ -250,16 +253,16 @@ def postZapato():
 
     try:
         talla = int(input ("\n Introduzca la talla del zapato a agregar:"))
-        Talla[llave+1] = talla
         precio = int(input ("\n Introduzca el precio del zapato a agregar:"))
-        Precio[llave+1] = precio
         cantidad = int(input ("\n Introduzca la cantidad del zapato a agregar:"))
-        Cantidad[llave+1] = cantidad
     except ValueError:
-         print("\nEl valor debe ser numerico")
-    
-    print("\n A continuacion se muestra el inventario para confirmación: \n")
-    verExistencia()
+        print("\nEl valor debe ser numerico")
+    else:
+        Talla[llave+1] = talla
+        Precio[llave+1] = precio
+        Cantidad[llave+1] = cantidad
+        print("\n A continuacion se muestra el inventario para confirmación: \n")
+        verExistencia()
        
 
 switch = {
