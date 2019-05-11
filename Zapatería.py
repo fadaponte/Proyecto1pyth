@@ -1,8 +1,8 @@
-from Proyecto1 import Zapato
 
 #variables
-
-codigos = {
+def __init__():
+    print("nada")
+Codigos = {
     0:'zapTAN37',
     1:'zapTAN38',
     2:'zapTAN39',
@@ -81,12 +81,32 @@ Cantidad = {
 
 #metodos
 
+#Método que permite realizar entregas
 def entregar():
     codigo = input("ingrese el código del zapato: ")
-    
-    print("El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+tal+", precio="+prec+"}\n"
-           "Del modelo" + codigo + "existen: "+ cant + "\n")
-    return "por implementar entregar\n"
+    clave = list(Codigos.values()).index(codigo)
+    descr = Descripcion.get(clave)
+    tal = Talla.get(clave)
+    prec = Precio.get(clave)
+    cant = Cantidad.get(clave)
+   
+    print("\n El modelo seleccionado es: Zapato {modelo=" + descr +", talla="+ str(tal) +", precio="+ str(prec) +"}\n Del modelo " + codigo + " existen: "+ str(cant) + "\n")
+   
+    while (True):
+        despacho = input("\n Indique la cantidad a despachar:")
+        total = cant - int(despacho)
+        if total > 0:
+            Cantidad.update({clave: total})
+            print("\n Despachadas "+ despacho + " unidades del modelo " + codigo)
+            cant = Cantidad.get(clave)                          
+            print("\n Existencia del modelo "+ codigo + ": "+ str(cant) + "\n")
+            break
+        else:
+            print("\n La cantidad introducida es mayor que las existencias del producto")
+            op = input("\n Desea introducir otra cantidad?(y/n): ")
+            if (op == "n"):
+                break
+        
 
 def fabricar():
     return "por implementar fabricar\n"
@@ -113,7 +133,7 @@ def main():
             print("Opción invalida")
         else:
             if op != 5:
-                print(switch[op]())
+                switch[op]()
             elif op == 5:
                 print("\nGracias por usar el sistema, regrese pronto\n")
                 a = False
